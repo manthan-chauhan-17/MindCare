@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mind_care/features/meditation/presentation/pages/meditation_screen.dart';
+import 'package:mind_care/features/music/presentation/pages/playlist.dart';
 import 'package:mind_care/screens/bottomNavBar/bloc/navigation_bloc.dart';
 import 'package:mind_care/screens/bottomNavBar/bloc/navigation_state.dart';
 import 'package:mind_care/screens/bottomNavBar/widgets/bottom_nav_bar.dart';
@@ -11,14 +12,7 @@ class HomePage extends StatelessWidget {
 
   final List<Widget> pages = [
     const MeditationScreen(),
-    const Scaffold(
-      body: Center(
-        child: Text(
-          "Music Screen",
-          style: TextStyle(color: Colors.green),
-        ),
-      ),
-    ),
+    Playlist(),
   ];
 
   BottomNavigationBarItem createBottomNavItem(
