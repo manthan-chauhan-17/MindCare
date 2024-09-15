@@ -14,8 +14,9 @@ class SongRemoteDatasourceImple implements SongRemoteDatasource {
 
   @override
   Future<List<SongModel>> getAllSongs() async {
+    // Use your device's ip address instead of localhost
     final response =
-        await client.get(Uri.parse('http://localhost:6000/songs/all'));
+        await client.get(Uri.parse('http://172.20.10.2:6000/songs/all'));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
