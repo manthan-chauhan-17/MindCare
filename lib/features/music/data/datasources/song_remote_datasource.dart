@@ -14,15 +14,21 @@ class SongRemoteDatasourceImple implements SongRemoteDatasource {
 
   @override
   Future<List<SongModel>> getAllSongs() async {
-    // Use your device's ip address instead of localhost
-    final response =
-        await client.get(Uri.parse('http://172.20.10.2:6000/songs/all'));
-
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((song) => SongModel.fromJson(song)).toList();
-    } else {
-      throw Exception("Failed to load songs");
+    try {
+      // Using emulator's ip address instead of localhost
+      final response =
+          await client.get(Uri.parse('http://10.0.2.2:6000/songs/all'));
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        List<dynamic> jsonResponse = json.decode(response.body);
+        print("Response data: $jsonResponse");
+        return jsonResponse.map((song) => SongModel.fromJson(song)).toList();
+      } else {
+        throw Exception("Failed to load songs");
+      }
+    } catch (e) {
+      print("Error: $e");
+      throw Exception("Failed to load songs due to error: $e");
     }
   }
 }
