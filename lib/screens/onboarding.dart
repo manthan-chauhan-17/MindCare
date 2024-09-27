@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mind_care/screens/loginPage/login_page.dart';
 import 'package:mind_care/theme.dart';
 
 class Onboarding extends StatelessWidget {
@@ -34,7 +35,14 @@ class Onboarding extends StatelessWidget {
               child: SizedBox(
                 height: 70.0,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.lightTheme.focusColor,
                     minimumSize: const Size(double.infinity, 50.0),

@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:mind_care/features/music/presentation/bloc/song_event.dart';
 import 'package:mind_care/screens/bottomNavBar/bloc/navigation_bloc.dart';
 import 'package:mind_care/screens/homePage/home_page.dart';
+import 'package:mind_care/screens/onboarding.dart';
 
 void main() {
   runApp(const MyApp());
