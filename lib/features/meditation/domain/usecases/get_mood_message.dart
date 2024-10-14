@@ -7,6 +7,6 @@ class GetMoodMessage {
   GetMoodMessage({required this.repository});
 
   Future<MoodMessage> call(String mood) async {
-    return await repository.getMoodMessage(mood: mood);
+    return await repository.getMoodMessage(mood);
   }
 }
