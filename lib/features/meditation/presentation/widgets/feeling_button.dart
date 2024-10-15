@@ -7,31 +7,36 @@ class FeelingButton extends StatelessWidget {
     required this.label,
     required this.image,
     required this.color,
+    required this.onTap,
   });
   final String label;
   final String image;
   final Color color;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: color,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: color,
+            ),
+            child: Image.asset(
+              image,
+              height: 25.0,
+            ),
           ),
-          child: Image.asset(
-            image,
-            height: 25.0,
-          ),
-        ),
-        Text(
-          label,
-          style: AppTheme.lightTheme.textTheme.labelSmall,
-        )
-      ],
+          Text(
+            label,
+            style: AppTheme.lightTheme.textTheme.labelSmall,
+          )
+        ],
+      ),
     );
   }
 }

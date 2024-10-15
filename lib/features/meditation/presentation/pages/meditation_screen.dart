@@ -43,22 +43,26 @@ class MeditationScreen extends StatelessWidget {
               const SizedBox(
                 height: 16.0,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   FeelingButton(
+                      onTap: () {},
                       label: "Happy",
                       image: "assets/images/happy.png",
                       color: DefaultColors.pink),
                   FeelingButton(
+                      onTap: () {},
                       label: "Calm",
                       image: "assets/images/calm.png",
                       color: DefaultColors.purple),
                   FeelingButton(
+                      onTap: () {},
                       label: "Relax",
                       image: "assets/images/relax.png",
                       color: DefaultColors.orange),
                   FeelingButton(
+                      onTap: () {},
                       label: "Focus",
                       image: "assets/images/focus.png",
                       color: DefaultColors.lightteal),
