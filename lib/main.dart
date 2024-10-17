@@ -4,8 +4,9 @@ import 'package:mind_care/features/meditation/data/datasources/meditation_remote
 import 'package:mind_care/features/meditation/data/repositories/meditation_repository_impl.dart';
 import 'package:mind_care/features/meditation/domain/usecases/get_daily_quote.dart';
 import 'package:mind_care/features/meditation/domain/usecases/get_mood_message.dart';
-import 'package:mind_care/features/meditation/presentation/bloc/meditation_bloc.dart';
-import 'package:mind_care/features/meditation/presentation/bloc/meditation_event.dart';
+import 'package:mind_care/features/meditation/presentation/bloc/daily_quote/daily_quote_bloc.dart';
+import 'package:mind_care/features/meditation/presentation/bloc/daily_quote/daily_quote_event.dart';
+import 'package:mind_care/features/meditation/presentation/bloc/mood_message/mood_message_bloc.dart';
 import 'package:mind_care/features/music/data/datasources/song_remote_datasource.dart';
 import 'package:mind_care/features/music/data/repository/song_repository_impl.dart';
 import 'package:mind_care/features/music/domain/usecases/get_all_songs.dart';
@@ -13,7 +14,6 @@ import 'package:mind_care/features/music/presentation/bloc/song_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:mind_care/features/music/presentation/bloc/song_event.dart';
 import 'package:mind_care/screens/bottomNavBar/bloc/navigation_bloc.dart';
-import 'package:mind_care/screens/homePage/home_page.dart';
 import 'package:mind_care/screens/onboarding.dart';
 
 void main() {
@@ -45,9 +45,8 @@ class MyApp extends StatelessWidget {
               FetchSongs(),
             ),
         ),
-        // Meditation Bloc
         BlocProvider(
-          create: (context) => MeditationBloc(
+          create: (context) => DailyQuoteBloc(
             getDailyQuote: GetDailyQuote(
               repository: MeditationRepositoryImpl(
                 remoteDatasource: MeditationRemoteDatasourceImpl(
@@ -55,6 +54,10 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
+          )..add(FetchDailtyQuotes()),
+        ),
+        BlocProvider(
+          create: (context) => MoodMessageBloc(
             getMoodMessage: GetMoodMessage(
               repository: MeditationRepositoryImpl(
                 remoteDatasource: MeditationRemoteDatasourceImpl(
@@ -62,10 +65,8 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-          )..add(
-              FetchDailyQuote(),
-            ),
-        )
+          ),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
