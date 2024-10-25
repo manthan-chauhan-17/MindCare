@@ -1,28 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:mind_care/features/auth/presentation/pages/login_page.dart';
 import 'package:mind_care/screens/homePage/home_page.dart';
-import 'package:mind_care/screens/loginPage/widgets/my_button.dart';
-import 'package:mind_care/screens/loginPage/widgets/my_textfield.dart';
-import 'package:mind_care/screens/loginPage/widgets/square_tile.dart';
+import 'package:mind_care/features/auth/presentation/widgets/my_button.dart';
+import 'package:mind_care/features/auth/presentation/widgets/my_textfield.dart';
+import 'package:mind_care/features/auth/presentation/widgets/square_tile.dart';
 import 'package:mind_care/theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class SingupPage extends StatelessWidget {
+  SingupPage({super.key});
 
   // text editing controllers
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    // sign user in method
-    void signUserIn() {
-      if (usernameController.text == 'admin' &&
-          passwordController.text == 'admin') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ),
+    // ignore: body_might_complete_normally_nullable
+    Future<User?> signUserIn(String email, String password, String name) async {
+      try {
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        if (userCredential.user != null) {
+          // Navigate to HomePage if sign-up is successful
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomePage(
+                      name: name,
+                    )),
+          );
+        }
+      } catch (e) {
+        print('Sign up Error : $e');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sign-up Error: ${e.toString()}')),
         );
       }
     }
@@ -47,7 +63,7 @@ class LoginPage extends StatelessWidget {
 
                 // welcome back, you've been missed!
                 Text(
-                  'Welcome back you\'ve been missed!',
+                  'Hey there! Sign in to continue',
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 16,
@@ -56,10 +72,16 @@ class LoginPage extends StatelessWidget {
 
                 const SizedBox(height: 25),
 
+                MyTextField(
+                    controller: nameController,
+                    hintText: 'Name',
+                    obscureText: false),
+
+                const SizedBox(height: 10),
                 // username textfield
                 MyTextField(
-                  controller: usernameController,
-                  hintText: 'Username',
+                  controller: emailController,
+                  hintText: 'Email',
                   obscureText: false,
                 ),
 
@@ -73,26 +95,14 @@ class LoginPage extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 10),
-
-                // forgot password?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Forgot Password?',
-                        style: TextStyle(color: Colors.grey[600]),
-                      ),
-                    ],
-                  ),
-                ),
-
                 const SizedBox(height: 25),
 
                 // sign in button
                 MyButton(
-                  onTap: signUserIn,
+                  onTap: () {
+                    signUserIn(emailController.text, passwordController.text,
+                        nameController.text);
+                  },
                 ),
 
                 const SizedBox(height: 30),
@@ -148,15 +158,27 @@ class LoginPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Not a member?',
+                      'Already a member?',
                       style: TextStyle(color: Colors.grey[700]),
                     ),
                     const SizedBox(width: 4),
-                    const Text(
-                      'Register now',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(
+                              name: nameController.text,
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Login now',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],

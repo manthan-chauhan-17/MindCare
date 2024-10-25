@@ -7,13 +7,17 @@ import 'package:mind_care/screens/bottomNavBar/bloc/navigation_state.dart';
 import 'package:mind_care/screens/bottomNavBar/widgets/bottom_nav_bar.dart';
 import 'package:mind_care/theme.dart';
 
+// ignore: must_be_immutable
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
+  HomePage({super.key, required this.name}) {
+    pages = [
+      MeditationScreen(name: name),
+      Playlist(),
+    ];
+  }
+  final String name;
 
-  final List<Widget> pages = [
-    const MeditationScreen(),
-    Playlist(),
-  ];
+  late List<Widget> pages = [];
 
   BottomNavigationBarItem createBottomNavItem(
       {required String assetName,

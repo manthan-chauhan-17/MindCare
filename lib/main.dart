@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mind_care/features/meditation/data/datasources/meditation_remote_datasource.dart';
@@ -16,7 +18,19 @@ import 'package:mind_care/features/music/presentation/bloc/song_event.dart';
 import 'package:mind_care/screens/bottomNavBar/bloc/navigation_bloc.dart';
 import 'package:mind_care/screens/onboarding.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Platform.isAndroid
+      ? await Firebase.initializeApp(
+          options: FirebaseOptions(
+            apiKey: "AIzaSyBsNnN1QMy8Gzqxygdcy8FtB05h-RT1U2M",
+            appId: "1:94658311849:android:3a28222d057f04aa0e5bb8",
+            messagingSenderId: "94658311849",
+            projectId: "mindcare-da22c",
+            storageBucket: "mindcare-da22c.appspot.com",
+          ),
+        )
+      : Firebase.initializeApp();
   runApp(const MyApp());
 }
 

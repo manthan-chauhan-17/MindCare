@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mind_care/screens/loginPage/login_page.dart';
+import 'package:mind_care/features/auth/presentation/pages/singup_page.dart';
 import 'package:mind_care/theme.dart';
 
 class Onboarding extends StatelessWidget {
@@ -39,7 +39,7 @@ class Onboarding extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LoginPage(),
+                        builder: (context) => SingupPage(),
                       ),
                     );
                   },

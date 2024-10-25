@@ -10,15 +10,18 @@ import 'package:mind_care/features/meditation/presentation/widgets/task_card.dar
 import 'package:mind_care/theme.dart';
 
 class MeditationScreen extends StatelessWidget {
-  const MeditationScreen({super.key});
-
+  const MeditationScreen({super.key, required this.name});
+  final String name;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: DefaultColors.white,
         elevation: 0,
-        leading: Image.asset("assets/images/menu_burger.png"),
+        title: Text(
+          "MindCare",
+          style: AppTheme.lightTheme.textTheme.bodyLarge,
+        ),
         actions: const [
           CircleAvatar(
             backgroundImage: AssetImage("assets/images/profile.png"),
@@ -35,7 +38,7 @@ class MeditationScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Welcome back, Sabrina!',
+              Text('Welcome back, $name!',
                   style: Theme.of(context).textTheme.titleLarge),
               SizedBox(
                 height: 32,
